@@ -1,0 +1,141 @@
+
+  {%extends 'test.html'%}
+  {% block navbar%}
+  <center><nav class="nav-bar">
+    <a href ="Home/Patient/{{id}}" > <i class="fa fa-fw fa-user"></i>PROFILE</a>
+    <a href ="/logout" > <i class="fa fa-fw fa-user"></i>LOGOUT</a>
+  </nav></center>
+  {% endblock %}
+  {%block testBlock%}
+  <!-- <p> This is Template {{ name }} </p> -->
+  <p> Question {{ questionNum[0] }}: </p>
+  <p>  {{ question }}</p>
+  <!-- <p>Options {{options}}</p> -->
+  <!-- <input type="button" id="subscribeNews" name="subscribe" value="{{options}}"> {{options}} </input> -->
+  <meta content = "{{selected_options}}" property = 'options_text'>
+  <form action="" onsubmit="return valquestion()" method = "POST" name="question-options" id = "q_form">
+    <table class="table">
+      <br/>
+      {%for value in options%}
+      <tr>
+        <td><br/>
+          <label class="radios">
+            <input id ="{{value}}" type="checkbox" name="option" value="{{value}}" >
+            {{value}}
+            <span class="checkmark"></span>
+          </label>
+
+        </td>
+      </tr>
+      {%endfor%}
+    </table>
+    <br/>
+    <input class="question-button" type="submit" name="Back" value="Back" onclick="clicked='Back'" formnovalidate>
+    <input class="question-button" type="submit" value="Next " name="Next" onclick="clicked='Next'">
+  </form>
+  <script>
+    var selected_boxes = document.querySelector("meta[property='options_text']").getAttribute("content");
+    // alert(selected_boxes)
+    if (selected_boxes ==="[]"){}else{
+    var varray = selected_boxes.split(":");
+    len =varray.length;
+    for (var i = 0; i<len; i++){
+
+      // alert(varray[i]);
+      var item = varray[i];
+      // alert(item === "Codeine");
+      var checkbox_select = document.getElementById(item.toString());
+      checkbox_select.checked = true;
+    }
+  }
+
+    var options_stuff = document.forms["question-options"].elements["option"];
+    var list_length = options_stuff.length;
+    var last_item = options_stuff[list_length-1];
+    // alert(last_item.value)
+
+
+
+
+    // this will store what the button was pressed.
+    var clicked;
+    function valquestion(){
+      // alert(clicked);
+      var default1 = false;
+
+      if (clicked == "Next") {
+
+      for (var i = 0; i<list_length; i++){
+
+        if (options_stuff[i].checked == true) {
+
+          default1 = true;
+        }
+
+      }
+
+      if (default1 == false) {
+        // alert("UH OH")
+      //  return false;
+    } else{
+      // alert("accepted")
+    }
+      return default1;
+    }else{
+      default1 = true;
+      return default1
+    }
+  }
+
+    var condition_array = ["I don't take any medication for my back pain",
+    "I am unable to ease my back pain",
+    "Everything I do causes me pain",
+    "Nothing I do stops my pain",
+    "Nothing helped"];
+    // alert(condition_array.includes(String(last_item.value)))
+    // alert(typeof last_item.value)
+    // alert(typeof condition_array[0])
+
+   //function val() {
+    // if(options_stuff.checked == false) {
+      // alert('You must select an option')
+    // }
+  // }
+
+    last_item.addEventListener('click',function(){
+      if (last_item.checked == true && condition_array.includes(String(last_item.value))){
+        // alert(condition_array.includes(String(last_item.value)))
+        // alert("CHECKED");
+        for (var i = 0; i< list_length-1; i++){
+          options_stuff[i].checked = false;
+        }
+
+      }
+    })
+
+    for (var i = 0; i<list_length-1; i++){
+      if (condition_array.includes(String(last_item.value))){
+        options_stuff[i].onclick = uncheck_last
+
+      }
+
+
+    }
+    function uncheck_last(){
+      // alert("top stuff checkd")
+      last_item.checked = false;
+    }
+//     $(form).submit(function(e) {
+//     e.preventDefault();
+//     for (var i=0; i<list_length; i++){
+//       if (options_stuff[i].checked == true) {
+//         alert("Atleast one is correct");
+//         return true;
+//       }
+//
+//     }
+//     return false;
+// }
+  </script>
+  <!-- <a href = "/"> Next </a> -->
+  {%endblock%}

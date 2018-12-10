@@ -1,0 +1,43 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='CssforTemplates.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>BACKonLINE</title>
+</head>
+
+<body>
+  <header class="header">
+    <img class="logo" src = "{{ url_for('static', filename = 'Cardiff.jpg') }}" id="Cardiff" style="width:100px;height:100px;">
+    <img class="logo" src = "{{ url_for('static', filename = 'Arthritis.jpg') }}" id="Arthritis" style="width:100px;height:100px;">
+    <div class="title">
+      <center><h1 class="header-title">BACKonLINE™</h1></center>
+    </div>
+  </header>
+
+
+{% block navbar%}
+<center><nav class="nav-bar">
+  <a href = "HomePage.html"><i class="fa fa-fw fa-home"></i>Home</a>
+  <a href = ""><i class="fa fa-fw fa-user"></i>Profile</a>
+</nav></center>
+
+
+<br><br><br>
+{% endblock%}
+
+
+
+
+<center><div class="question" id="main"><br/>
+{%block testBlock%}
+  <p>Hello people</p>
+{%endblock%}
+
+{% block numBlock %}{% endblock %}
+</div></center>
+   </body>
+</body>
+
+</html>
